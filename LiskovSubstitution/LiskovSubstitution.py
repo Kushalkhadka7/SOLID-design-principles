@@ -11,17 +11,13 @@ class Order(metaclass=ABCMeta):
         pass
 
 
-class Payment(metaclass=ABCMeta):
+class DemoPayment(metaclass=ABCMeta):
     @abstractmethod
     def pay(self, order: Order, code: int) -> None:
         pass
 
 
-class DemoPayment(metaclass=ABCMeta):
+class Payment(metaclass=ABCMeta):
     @abstractmethod
-    def debit(self, order: Order) -> None:
-        pass
-
-    @abstractmethod
-    def credit(self, order: Order) -> None:
+    def pay(self, order: Order) -> None:
         pass

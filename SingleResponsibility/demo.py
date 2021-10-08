@@ -1,4 +1,4 @@
-from SingleResponsibility import CodeOrder
+from SingleResponsibility import DemoOrder
 
 
 class Order(CodeOrder):
@@ -7,8 +7,8 @@ class Order(CodeOrder):
 
     def add_items(self, item_name: str, price: float, quantity: int) -> None:
         item = {
-            "name": item_name,
             "price": price,
+            "name": item_name,
             "quantity": quantity
         }
 
@@ -16,6 +16,7 @@ class Order(CodeOrder):
 
     def calculate_total(self):
         total = 0
+        
         for item in self.items:
             total += item.get('price') * item.get('quantity')
 

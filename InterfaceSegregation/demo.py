@@ -1,4 +1,4 @@
-from Icode import Order as IOrder, Payment
+from InterfaceSegregation import Order as IOrder, DemoPayment
 
 
 class Order(IOrder):
@@ -22,7 +22,7 @@ class Order(IOrder):
         return total
 
 
-class DebitPayment(Payment):
+class DebitPayment(DemoPayment):
     def __init__(self, code: int):
         self.code = code
 
@@ -33,7 +33,7 @@ class DebitPayment(Payment):
         print(f'Payment Successful')
 
 
-class CreditPayment(Payment):
+class CreditPayment(DemoPayment):
     def __init__(self, code: int):
         self.code = code
 
@@ -44,7 +44,7 @@ class CreditPayment(Payment):
         print(f'Payment Successful')
 
 
-class VisaPayment(Payment):
+class VisaPayment(DemoPayment):
     def __init__(self, email: str):
         self.email = email
 

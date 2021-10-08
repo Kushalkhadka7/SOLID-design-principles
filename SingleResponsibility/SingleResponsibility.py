@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-
 class Order(metaclass=ABCMeta):
     @abstractmethod
     def add_items(self, item_name: str, price: float, quantity: int) -> None:
@@ -21,7 +20,7 @@ class Payment(metaclass=ABCMeta):
         pass
 
 
-class CodeOrder(metaclass=ABCMeta):
+class DemoOrder(metaclass=ABCMeta):
     @abstractmethod
     def add_items(self, item_name: str, price: float, quantity: int) -> None:
         pass

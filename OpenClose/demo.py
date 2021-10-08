@@ -1,4 +1,4 @@
-from Icode import Order as IOrder, Payment
+from IOpenClose import Order as IOrder, DemoPayment
 
 
 class Order(IOrder):
@@ -16,41 +16,25 @@ class Order(IOrder):
 
     def calculate_total(self):
         total = 0
+        
         for item in self.items:
             total += item.get('price') * item.get('quantity')
 
         return total
 
 
-class DebitPayment(Payment):
-    def __init__(self, code: int):
-        self.code = code
-
-    def pay(self, order: Order):
+class Payment(DemoPayment):
+    @staticmethod
+    def debit(order: Order, code: int):
         print(f'Payment is processing using debit card.')
-        print(f'Validating code {self.code}.')
+        print(f'Validating code {code}.')
         order.status = 'Paid'
         print(f'Payment Successful')
 
-
-class CreditPayment(Payment):
-    def __init__(self, code: int):
-        self.code = code
-
-    def pay(self, order: Order):
+    @staticmethod
+    def credit(order: Order, code: int):
         print(f'Payment is processing using credit card.')
-        print(f'Validating code {self.code}.')
-        order.status = 'Paid'
-        print(f'Payment Successful')
-
-
-class VisaPayment(Payment):
-    def __init__(self, email: str):
-        self.email = email
-
-    def pay(self, order: Order):
-        print(f'Payment is processing using credit card.')
-        print(f'Validating code {self.email}.')
+        print(f'Validating code {code}.')
         order.status = 'Paid'
         print(f'Payment Successful')
 
@@ -61,6 +45,5 @@ order.add_items("kushal", 100, 2)
 order.add_items("Nischal", 500, 2)
 order.calculate_total()
 
-# Payment.
-visa_payment = VisaPayment('test@gmail.com')
-visa_payment.pay(order)
+payment = Payment()
+payment.debit(order, 123)

@@ -1,4 +1,14 @@
-from Icode import Order as IOrder, Payment
+from InterfaceSegregation import Order as IOrder, DemoPayment
+from abc import abstractmethod, ABCMeta
+
+class Authorize:
+    is_valid = False
+
+    def verify(self) -> None:
+        self.is_valid = True
+
+    def is_authorized(self) -> bool:
+        return self.is_valid
 
 
 class Order(IOrder):
@@ -22,29 +32,37 @@ class Order(IOrder):
         return total
 
 
-class DebitPayment(Payment):
-    def __init__(self, code: int):
+class DebitPayment(ExamplePayment):
+
+    def __init__(self, code: int, validator: Authorize):
         self.code = code
+        self.validator = validator
 
     def pay(self, order: Order):
+        if not self.validator.is_authorized():
+            raise Exception("User not verified.")
         print(f'Payment is processing using debit card.')
         print(f'Validating code {self.code}.')
         order.status = 'Paid'
         print(f'Payment Successful')
 
 
-class CreditPayment(Payment):
-    def __init__(self, code: int):
+class CreditPayment(ExamplePayment):
+
+    def __init__(self, code: int, validator: Authorize):
         self.code = code
+        self.validator = validator
 
     def pay(self, order: Order):
+        if not self.validator.is_authorized():
+            raise Exception("User not verified.")
         print(f'Payment is processing using credit card.')
         print(f'Validating code {self.code}.')
         order.status = 'Paid'
         print(f'Payment Successful')
 
 
-class VisaPayment(Payment):
+class VisaPayment(ExamplePayment):
     def __init__(self, email: str):
         self.email = email
 
@@ -61,6 +79,10 @@ order.add_items("kushal", 100, 2)
 order.add_items("Nischal", 500, 2)
 order.calculate_total()
 
+# validate
+validator = Authentication()
+
 # Payment.
-visa_payment = VisaPayment('test@gmail.com')
+visa_payment = CreditPayment(123, validator)
+validator.verify()
 visa_payment.pay(order)

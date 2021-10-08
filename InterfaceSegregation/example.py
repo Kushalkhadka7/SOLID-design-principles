@@ -1,4 +1,11 @@
-from Icode import Order as IOrder, Payment
+from abc import abstractmethod, ABCMeta
+from InterfaceSegregation import Order as IOrder, DemoPayment, ExamplePayment
+
+class PaymentWithAuth(DemoPayment):
+
+    @abstractmethod
+    def two_factor_auth(self) -> None:
+        pass
 
 
 class Order(IOrder):
@@ -22,26 +29,39 @@ class Order(IOrder):
         return total
 
 
-class DebitPayment(Payment):
+class DebitPayment(PaymentWithAuth):
+
     def __init__(self, code: int):
+        self.is_verified = False
         self.code = code
 
     def pay(self, order: Order):
+        if not self.is_verified:
+            raise Exception("User not verified.")
         print(f'Payment is processing using debit card.')
         print(f'Validating code {self.code}.')
         order.status = 'Paid'
         print(f'Payment Successful')
 
+    def two_factor_auth(self):
+        self.is_verified = True
 
-class CreditPayment(Payment):
+
+class CreditPayment(PaymentWithAuth):
     def __init__(self, code: int):
         self.code = code
+        self.is_verified = False
 
     def pay(self, order: Order):
+        if not self.is_verified:
+            raise Exception("User not verified.")
         print(f'Payment is processing using credit card.')
         print(f'Validating code {self.code}.')
         order.status = 'Paid'
         print(f'Payment Successful')
+
+    def two_factor_auth(self):
+        self.is_verified = True
 
 
 class VisaPayment(Payment):
