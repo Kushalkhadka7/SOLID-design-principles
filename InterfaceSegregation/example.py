@@ -1,5 +1,6 @@
-from abc import abstractmethod, ABCMeta
-from InterfaceSegregation import Order as IOrder, DemoPayment, ExamplePayment
+from abc import abstractmethod
+from ISInterface import Order as IOrder, DemoPayment, ExamplePayment
+
 
 class PaymentWithAuth(DemoPayment):
 
@@ -64,7 +65,7 @@ class CreditPayment(PaymentWithAuth):
         self.is_verified = True
 
 
-class VisaPayment(Payment):
+class VisaPayment(ExamplePayment):
     def __init__(self, email: str):
         self.email = email
 

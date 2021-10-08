@@ -1,4 +1,4 @@
-from IOpenClose import Order as IOrder, Payment
+from OCInterface import Order as IOrder, Payment
 
 
 class Order(IOrder):

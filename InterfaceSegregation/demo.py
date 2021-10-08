@@ -1,4 +1,4 @@
-from InterfaceSegregation import Order as IOrder, DemoPayment
+from ISInterface import Order as IOrder, DemoPayment
 
 
 class Order(IOrder):

@@ -1,7 +1,7 @@
-from SingleResponsibility import DemoOrder
+from SingleResponsibility.SRInterface import DemoOrder
 
 
-class Order(CodeOrder):
+class Order(DemoOrder):
     items = []
     status = "Not Paid"
 
@@ -14,15 +14,15 @@ class Order(CodeOrder):
 
         self.items.append(item)
 
-    def calculate_total(self):
+    def calculate_total(self) -> float:
         total = 0
-        
+
         for item in self.items:
             total += item.get('price') * item.get('quantity')
 
         return total
 
-    def payment(self, payment_type: str, code: int):
+    def payment(self, payment_type: str, code: int) -> None:
         if payment_type == 'debit':
             print(f'Payment is processing using {payment_type} card.')
             print(f'Validating code {code}.')

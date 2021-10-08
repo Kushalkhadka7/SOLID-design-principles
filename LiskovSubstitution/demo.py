@@ -1,4 +1,4 @@
-from Icode import Order as IOrder, DemoPayment
+from LSInterface import Order as IOrder, DemoPayment
 
 
 class Order(IOrder):

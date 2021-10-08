@@ -1,7 +1,5 @@
-from Dependency import Order as IOrder, ExamplePayment
+from DIInterface import Order as IOrder, ExamplePayment
 from abc import abstractmethod, ABCMeta
-
-
 
 
 class Authorize:
@@ -89,7 +87,7 @@ order.add_items("Nischal", 500, 2)
 order.calculate_total()
 
 # validate
-validator = Authentication()
+validator = Authorize()
 
 # Payment.
 visa_payment = CreditPayment(123, validator)

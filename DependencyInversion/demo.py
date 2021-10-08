@@ -1,5 +1,4 @@
-from InterfaceSegregation import Order as IOrder, DemoPayment, ExamplePayment
-from abc import abstractmethod, ABCMeta
+from DIInterface import Order as IOrder, ExamplePayment
 
 
 class Authorize:
@@ -35,7 +34,7 @@ class Order(IOrder):
 
 class DebitPayment(ExamplePayment):
 
-    def __init__(self, code: int, validator: Authentication):
+    def __init__(self, code: int, validator: Authorize):
         self.code = code
         self.validator = validator
 
@@ -50,7 +49,7 @@ class DebitPayment(ExamplePayment):
 
 class CreditPayment(ExamplePayment):
 
-    def __init__(self, code: int, validator: Authentication):
+    def __init__(self, code: int, validator: Authorize):
         self.code = code
         self.validator = validator
 
@@ -81,7 +80,7 @@ order.add_items("Nischal", 500, 2)
 order.calculate_total()
 
 # validate
-validator = Authorize()()
+validator = Authorize()
 
 # Payment.
 visa_payment = CreditPayment(123, validator)

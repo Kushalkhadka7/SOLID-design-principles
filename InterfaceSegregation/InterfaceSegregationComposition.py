@@ -1,5 +1,6 @@
-from InterfaceSegregation import Order as IOrder, DemoPayment
+from ISInterface import Order as IOrder, DemoPayment
 from abc import abstractmethod, ABCMeta
+
 
 class Authorize:
     is_valid = False
@@ -32,7 +33,7 @@ class Order(IOrder):
         return total
 
 
-class DebitPayment(ExamplePayment):
+class DebitPayment(DemoPayment):
 
     def __init__(self, code: int, validator: Authorize):
         self.code = code
@@ -47,7 +48,7 @@ class DebitPayment(ExamplePayment):
         print(f'Payment Successful')
 
 
-class CreditPayment(ExamplePayment):
+class CreditPayment(DemoPayment):
 
     def __init__(self, code: int, validator: Authorize):
         self.code = code
@@ -62,7 +63,7 @@ class CreditPayment(ExamplePayment):
         print(f'Payment Successful')
 
 
-class VisaPayment(ExamplePayment):
+class VisaPayment(DemoPayment):
     def __init__(self, email: str):
         self.email = email
 
@@ -80,7 +81,7 @@ order.add_items("Nischal", 500, 2)
 order.calculate_total()
 
 # validate
-validator = Authentication()
+validator = Authorize()
 
 # Payment.
 visa_payment = CreditPayment(123, validator)

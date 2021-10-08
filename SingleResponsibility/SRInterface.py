@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
+
 class Order(metaclass=ABCMeta):
     @abstractmethod
     def add_items(self, item_name: str, price: float, quantity: int) -> None:
