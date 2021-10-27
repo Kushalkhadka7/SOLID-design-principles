@@ -4,7 +4,7 @@ SOLID is a popular set of design principles that are used in object-oriented sof
 
 The broad goal of the SOLID principles is to reduce dependencies so that engineers change one area of software without impacting others. Additionally, they’re intended to make designs easier to understand, maintain, and extend. Ultimately, using these design principles makes it easier for software engineers to avoid issues and to build adaptive, effective, and agile software.
 
-## Types
+## Design Principles
 
 - [SingleResponsibilityPrinciple](SingleResponsibility/README.md)
 
